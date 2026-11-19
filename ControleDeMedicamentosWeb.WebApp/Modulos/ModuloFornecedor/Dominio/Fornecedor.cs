@@ -7,21 +7,21 @@ public sealed class Fornecedor : EntidadeBase<Fornecedor>
 {
     public string Nome { get; set; } = string.Empty;
     public string Telefone { get; set; } = string.Empty;
-    public string CNPJ { get; set; } = string.Empty;
+    public string Cnpj { get; set; } = string.Empty;
 
     public Fornecedor() {  }
-    public Fornecedor(string nome, string telefone, string cNPJ)
+    public Fornecedor(string nome, string telefone, string cnpj)
     {
         Nome = nome;
         Telefone = telefone;
-        CNPJ = cNPJ;
+        Cnpj = cnpj;
     }
 
     public override void Atualizar(Fornecedor entidadeAtualizada)
     {
         Nome = entidadeAtualizada.Nome;
         Telefone = entidadeAtualizada.Telefone;
-        CNPJ = entidadeAtualizada.CNPJ;
+        Cnpj = entidadeAtualizada.Cnpj;
     }
 
     public override List<string> Validar()
@@ -45,10 +45,10 @@ public sealed class Fornecedor : EntidadeBase<Fornecedor>
             @"^\s*(?:\+?55\s*)?(?:\([1-9][0-9]\)|[1-9][0-9])[\s.-]*[0-9]{4,5}[\s.-]*[0-9]{4}\s*$"))
             erros.Add("O campo \"Telefone\" deve conter um telefone brasileiro válido com DDD.");
     
-        if (string.IsNullOrWhiteSpace(CNPJ))
+        if (string.IsNullOrWhiteSpace(Cnpj))
             erros.Add("O campo \"CNPJ\" deve ser preenchido.");
 
-        else if (!CnpjValido(CNPJ))
+        else if (!CnpjValido(Cnpj))
             erros.Add("O campo \"CNPJ\" deve conter 14 dígitos válidos, sem espaços ou hífens.");
 
         return erros;
