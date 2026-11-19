@@ -76,6 +76,23 @@ public class ServicoFornecedor
         return Result.Ok();
     }
 
+    public List<ListarFornecedorDto> SelecionarTodos()
+    {
+        return repositorioFornecedor
+            .SelecionarTodos()
+            .Select(f => new ListarFornecedorDto(f.Id,f.Nome,f.Telefone,f.Cnpj)).ToList();
+    }
+
+    public Result<DetalhesFornecedorDto> SelecionarPorId(Guid id)
+    {
+        Fornecedor? fornecedor = repositorioFornecedor.SelecionarPorId(id);
+
+        if (fornecedor == null)
+            return Result.Fail("Fornecedor não encontrado.");
+        
+        return Result.Ok(new DetalhesFornecedorDto(id, fornecedor.Nome, fornecedor.Telefone, fornecedor.Cnpj));
+    }
+
     private Result ValidarEntidade(Fornecedor fornecedor)
     {
             List<string> erros = fornecedor.Validar();
