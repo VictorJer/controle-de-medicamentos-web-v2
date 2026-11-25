@@ -53,6 +53,13 @@ public class FornecedorController(ServicoFornecedor servicoFornecedor, IMapper m
     {
         var result = servicoFornecedor.SelecionarPorId(id);
 
+        if (result.IsFailed)
+        {
+            TempData.AddErrorMessage(result);
+
+            return RedirectToAction(nameof(Listar));
+        }
+
         var fornecedor = mapper.Map<EditarFornecedorViewModel>(result.Value);
 
         return View(fornecedor);
@@ -73,6 +80,38 @@ public class FornecedorController(ServicoFornecedor servicoFornecedor, IMapper m
             ModelState.AddModelError(result);
 
             return View(editarVm);
+        }
+
+        return RedirectToAction(nameof(Listar));
+    }
+
+    [HttpGet]
+    public ActionResult Excluir(Guid id)
+    {
+        var result = servicoFornecedor.SelecionarPorId(id);
+
+        if (result.IsFailed)
+        {
+            TempData.AddErrorMessage(result);
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        var vm = mapper.Map<ExcluirFornecedorViewModel>(result.Value);
+
+        return View(vm);
+    }
+
+    [HttpPost]
+    public ActionResult Excluir(ExcluirFornecedorViewModel excluirVm)
+    {
+        var result = servicoFornecedor.Excluir(excluirVm.Id);
+
+        if (result.IsFailed)
+        {
+            TempData.AddErrorMessage(result);
+
+            return RedirectToAction(nameof(Listar));
         }
 
         return RedirectToAction(nameof(Listar));
