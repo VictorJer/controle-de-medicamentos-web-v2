@@ -15,7 +15,7 @@ public record CadastrarFornecedorViewModel(
 string Nome,
 
     [Required(ErrorMessage = "O campo \"Telefone\" deve ser preenchido.")]
-[RegularExpression(@"^\(\d{2}\) \d{4,5}-\d{4}$", ErrorMessage = "O campo \"Telefone\" deve estar no formato (DDD) 90000-0000.")]
+[RegularExpression(@"^\d{11}$", ErrorMessage = "O campo \"Telefone\" deve conter exatamente 11 dígitos.")]
 string Telefone,
 
     [Required(ErrorMessage = "O campo \"CNPJ\" deve ser preenchido.")]
@@ -31,7 +31,7 @@ public record EditarFornecedorViewModel(
 string Nome,
 
     [Required(ErrorMessage = "O campo \"Telefone\" deve ser preenchido.")]
-[RegularExpression(@"^\(\d{2}\) \d{4,5}-\d{4}$", ErrorMessage = "O campo \"Telefone\" deve estar no formato (DDD) 90000-0000.")]
+[RegularExpression(@"^\d{11}$", ErrorMessage = "O campo \"Telefone\" deve conter exatamente 11 dígitos.")]
 string Telefone,
 
     [Required(ErrorMessage = "O campo \"CNPJ\" deve ser preenchido.")]
