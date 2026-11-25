@@ -39,10 +39,10 @@ public class ServicoFornecedor
 
     public Result Editar(EditarFornecedorDto editarDto)
     {
-        if (ExisteFornecedorComMesmoNome(editarDto.Nome))
+        if (ExisteFornecedorComMesmoNome(editarDto.Nome, editarDto.Id))
             return Falha(nameof(editarDto.Nome), "Já existe um \"Fornecedor\" com o mesmo nome.");
         
-        if (ExisteFornecedorComMesmoCnpj(editarDto.Cnpj))
+        if (ExisteFornecedorComMesmoCnpj(editarDto.Cnpj, editarDto.Id))
             return Falha(nameof(editarDto.Cnpj), "Já existe esse \"CNPJ\".");
 
         Fornecedor fornecedorAtualizado = new Fornecedor(
@@ -105,11 +105,13 @@ public class ServicoFornecedor
 
     private bool ExisteFornecedorComMesmoCnpj(string cnpj, Guid? idIgnorado = null)
     {
+        string cnpjNormalizado = NormalizarCnpj(cnpj);
+
         return repositorioFornecedor
             .SelecionarTodos()
             .Any(f =>
                 f.Id != idIgnorado &&
-                string.Equals(f.Cnpj, cnpj, StringComparison.Ordinal));
+                string.Equals(NormalizarCnpj(f.Cnpj), cnpjNormalizado, StringComparison.Ordinal));
     }
     private bool ExisteFornecedorComMesmoNome(string nome, Guid? idIgnorado = null)
     {
@@ -123,5 +125,13 @@ public class ServicoFornecedor
     private static Result Falha(string campo, string mensagem)
     {
         return Result.Fail(new Error(mensagem).WithMetadata("Campo", campo));
+    }
+
+    private static string NormalizarCnpj(string cnpj)
+    {
+        return cnpj
+            .Replace(".", string.Empty)
+            .Replace("/", string.Empty)
+            .Replace("-", string.Empty);
     }
 }

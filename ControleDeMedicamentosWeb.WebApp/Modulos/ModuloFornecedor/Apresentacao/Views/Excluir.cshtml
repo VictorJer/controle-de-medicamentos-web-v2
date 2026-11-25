@@ -1,0 +1,62 @@
+@model ControleDeMedicamentosWeb.WebApp.Modulos.ModuloFornecedor.Apresentacao.ExcluirFornecedorViewModel
+
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Excluir fornecedor";
+}
+
+<section class="form-page">
+    <div class="form-toolbar">
+        <div>
+            <span class="section-eyebrow">Confirmação</span>
+            <h2>Excluir fornecedor</h2>
+        </div>
+
+        <a class="btn btn-secondary-action" asp-controller="Fornecedor" asp-action="Listar">
+            Voltar à listagem
+        </a>
+    </div>
+
+    <div class="form-card delete-card">
+        <div class="delete-warning">
+            <span class="delete-warning-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 8v5m0 3.5v.1M10.3 4.6 3.2 17a2 2 0 0 0 1.7 3h14.2a2 2 0 0 0 1.7-3L13.7 4.6a2 2 0 0 0-3.4 0Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </span>
+            <div>
+                <strong>Deseja realmente excluir este fornecedor?</strong>
+                <p>Esta ação não poderá ser desfeita.</p>
+            </div>
+        </div>
+
+        <dl class="delete-details">
+            <div>
+                <dt>Nome</dt>
+                <dd>@Model.Nome</dd>
+            </div>
+            <div>
+                <dt>Telefone</dt>
+                <dd>@Model.Telefone</dd>
+            </div>
+            <div>
+                <dt>CNPJ</dt>
+                <dd>@Model.Cnpj</dd>
+            </div>
+        </dl>
+
+        <form asp-controller="Fornecedor" asp-action="Excluir" method="post">
+            <input asp-for="Id" type="hidden" />
+
+            <div class="form-actions">
+                <a class="btn btn-secondary-action" asp-controller="Fornecedor" asp-action="Listar">Cancelar</a>
+                <button type="submit" class="btn btn-delete-action">
+                    <svg aria-hidden="true" viewBox="0 0 20 20" fill="none">
+                        <path d="M4 6h12M8 3.5h4M6.5 6l.7 9h5.6l.7-9M8.5 9v3.5M11.5 9v3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    Excluir fornecedor
+                </button>
+            </div>
+        </form>
+    </div>
+</section>

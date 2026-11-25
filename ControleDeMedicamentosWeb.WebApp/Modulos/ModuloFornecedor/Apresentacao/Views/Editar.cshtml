@@ -1,0 +1,56 @@
+@model ControleDeMedicamentosWeb.WebApp.Modulos.ModuloFornecedor.Apresentacao.EditarFornecedorViewModel
+
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Editar fornecedor";
+}
+
+<section class="form-page">
+    <div class="form-toolbar">
+        <div>
+            <span class="section-eyebrow">Atualização cadastral</span>
+            <h2>Editar dados do fornecedor</h2>
+        </div>
+
+        <a class="btn btn-secondary-action" asp-controller="Fornecedor" asp-action="Listar">
+            Voltar à listagem
+        </a>
+    </div>
+
+    <div class="form-card">
+        <form asp-controller="Fornecedor" asp-action="Editar" method="post" novalidate>
+            <input asp-for="Id" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+
+            <div class="form-grid">
+                <div class="form-field form-field-wide">
+                    <label asp-for="Nome" class="form-label">Nome</label>
+                    <input asp-for="Nome" class="form-control app-form-control" placeholder="Informe o nome do fornecedor" />
+                    <span asp-validation-for="Nome" class="text-danger form-validation"></span>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="Telefone" class="form-label">Telefone</label>
+                    <input asp-for="Telefone" class="form-control app-form-control" placeholder="11900000000" maxlength="11" inputmode="numeric" />
+                    <span asp-validation-for="Telefone" class="text-danger form-validation"></span>
+                </div>
+
+                <div class="form-field">
+                    <label asp-for="Cnpj" class="form-label">CNPJ</label>
+                    <input asp-for="Cnpj" class="form-control app-form-control" placeholder="00.000.000/0000-00" />
+                    <span asp-validation-for="Cnpj" class="text-danger form-validation"></span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <a class="btn btn-secondary-action" asp-controller="Fornecedor" asp-action="Listar">Cancelar</a>
+                <button type="submit" class="btn btn-primary-action">
+                    <svg aria-hidden="true" viewBox="0 0 20 20" fill="none">
+                        <path d="m4.5 10 3.2 3.2 7.8-7.4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    Salvar alterações
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
