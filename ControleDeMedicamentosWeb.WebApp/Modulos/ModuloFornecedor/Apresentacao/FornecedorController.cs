@@ -1,4 +1,5 @@
 using AutoMapper;
+using ControleDeMedicamentosWeb.WebApp.Compartilhado.Apresentacao.Extensions;
 using ControleDeMedicamentosWeb.WebApp.Modulos.ModuloFornecedor.Aplicacao;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,5 +26,25 @@ public class FornecedorController(ServicoFornecedor servicoFornecedor, IMapper m
         );
 
         return View(cadastrarVm);
+    }
+
+    [HttpPost]
+    public ActionResult Cadastrar(CadastrarFornecedorViewModel cadastrarVm)
+    {
+        if (!ModelState.IsValid)
+            return View(cadastrarVm);
+        
+        CadastrarFornecedorDto dto = mapper.Map<CadastrarFornecedorDto>(cadastrarVm);
+
+        var result = servicoFornecedor.Cadastrar(dto);
+
+        if (result.IsFailed)
+        {
+            ModelState.AddModelError(result);
+
+            return View(cadastrarVm);
+        }
+
+        return RedirectToAction(nameof(Listar));
     }
 }
