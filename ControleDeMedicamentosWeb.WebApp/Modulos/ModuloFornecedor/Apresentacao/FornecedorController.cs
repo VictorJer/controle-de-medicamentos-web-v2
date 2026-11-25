@@ -47,4 +47,34 @@ public class FornecedorController(ServicoFornecedor servicoFornecedor, IMapper m
 
         return RedirectToAction(nameof(Listar));
     }
+
+    [HttpGet]
+    public ActionResult Editar(Guid id)
+    {
+        var result = servicoFornecedor.SelecionarPorId(id);
+
+        var fornecedor = mapper.Map<EditarFornecedorViewModel>(result.Value);
+
+        return View(fornecedor);
+    }
+
+    [HttpPost]
+    public ActionResult Editar(EditarFornecedorViewModel editarVm)
+    {
+        if (!ModelState.IsValid)
+            return View(editarVm);
+
+        var dto = mapper.Map<EditarFornecedorDto>(editarVm);
+
+        var result = servicoFornecedor.Editar(dto);
+
+        if (result.IsFailed)
+        {
+            ModelState.AddModelError(result);
+
+            return View(editarVm);
+        }
+
+        return RedirectToAction(nameof(Listar));
+    }
 }
