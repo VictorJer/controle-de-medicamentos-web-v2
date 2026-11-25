@@ -1,48 +1,120 @@
 @{
     Layout = "_Layout";
-    ViewBag.Titulo = "Página Inicial";
+    ViewBag.Titulo = "Início";
+    ViewBag.OcultarCabecalho = true;
 }
 
-<div class="row g-2">
-    <div class="col-lg-7">
-        <h1 class="display-5 fw-semibold mb-3">Controle de Medicamentos</h1>
-        <p class="lead text-secondary mb-4">
-            Gerencie funcionários, pacientes, medicamentos e estoque de forma simples e organizada.
+<section class="hero-panel">
+    <div class="hero-copy">
+        <span class="hero-eyebrow">
+            <span class="eyebrow-dot"></span>
+            Gestão simples, cuidado melhor
+        </span>
+        <h1>Mais organização para cuidar de <span>cada dose.</span></h1>
+        <p>
+            Centralize medicamentos, pacientes, fornecedores e equipe em um só lugar.
+            Uma rotina mais clara começa aqui.
         </p>
-
-        <div class="d-flex flex-wrap gap-2">
-            <a class="btn btn-primary rounded-pill px-4" asp-controller="Fornecedor" asp-action="Listar">Fornecedores</a>
-            <a class="btn btn-primary rounded-pill px-4" asp-controller="Paciente" asp-action="Listar">Pacientes</a>
-            <a class="btn btn-primary rounded-pill px-4" asp-controller="Medicamento" asp-action="Listar">Medicamentos</a>
-            <a class="btn btn-primary rounded-pill px-4" asp-controller="Funcionario" asp-action="Listar">Funcionários</a>
-        </div>
-
-    </div>
-
-    <div class="col-lg-5">
-        <div class="card border-primary-subtle shadow-sm">
-            <div class="card-body p-4">
-                <h3 class="h5 text-primary mb-3">Módulos disponíveis</h3>
-
-                <div class="list-group">
-                    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" asp-controller="Fornecedor" asp-action="Listar">
-                        Controle de Fornecedores
-                        <span class="badge text-bg-primary rounded-pill">Abrir</span>
-                    </a>
-                    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" asp-controller="Paciente" asp-action="Listar">
-                        Controle de Pacientes
-                        <span class="badge text-bg-primary rounded-pill">Abrir</span>
-                    </a>
-                    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" asp-controller="Medicamento" asp-action="Listar">
-                        Controle de Medicamentos
-                        <span class="badge text-bg-primary rounded-pill">Abrir</span>
-                    </a>
-                    <a class="list-group-item list-group-item-action d-flex justify-content-between align-items-center" asp-controller="Funcionario" asp-action="Listar">
-                        Controle de Funcionários
-                        <span class="badge text-bg-primary rounded-pill">Abrir</span>
-                    </a>
-                </div>
-            </div>
+        <div class="hero-actions">
+            <a class="btn btn-hero-primary" asp-controller="Medicamento" asp-action="Listar">
+                Acessar medicamentos
+                <svg aria-hidden="true" viewBox="0 0 20 20" fill="none">
+                    <path d="M4.5 10h11m-4.5-4.5L15.5 10 11 14.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </a>
+            <a class="hero-text-link" href="#modulos">Conhecer módulos</a>
         </div>
     </div>
-</div>
+
+    <div class="hero-art" aria-hidden="true">
+        <div class="art-orbit orbit-one"></div>
+        <div class="art-orbit orbit-two"></div>
+        <div class="medicine-mark">
+            <svg viewBox="0 0 120 120" fill="none">
+                <rect x="25" y="12" width="70" height="96" rx="26" fill="#F5FBF8" />
+                <path d="M25 60h70v22c0 14.36-11.64 26-26 26H51c-14.36 0-26-11.64-26-26V60Z" fill="#BCE6D5" />
+                <path d="M60 32v22m-11-11h22" stroke="#1B705E" stroke-width="6" stroke-linecap="round" />
+                <path d="M25 60h70" stroke="#1B705E" stroke-width="3" />
+            </svg>
+        </div>
+        <div class="art-note">
+            <span class="art-note-icon">
+                <svg viewBox="0 0 20 20" fill="none">
+                    <path d="m5 10 3.2 3.2L15.5 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+            </span>
+            <span><strong>Cuidado em foco</strong><small>Uma gestão mais tranquila</small></span>
+        </div>
+        <span class="art-sparkle sparkle-one">✳</span>
+        <span class="art-sparkle sparkle-two">✳</span>
+    </div>
+</section>
+
+<section class="modules-section" id="modulos">
+    <div class="section-heading">
+        <div>
+            <span class="section-eyebrow">Tudo no seu lugar</span>
+            <h2>Acesse seus módulos</h2>
+        </div>
+        <p>Encontre rapidamente o que você precisa para manter a operação em dia.</p>
+    </div>
+
+    <div class="module-grid">
+        <a class="module-card" asp-controller="Medicamento" asp-action="Listar">
+            <span class="module-icon icon-medicine">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                    <path d="M8.2 4.7a4.95 4.95 0 0 1 7 0l4.1 4.1a4.95 4.95 0 0 1-7 7l-4.1-4.1a4.95 4.95 0 0 1 0-7Z" stroke="currentColor" stroke-width="1.7" />
+                    <path d="m9.2 13.8 7-7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+                    <path d="M5.2 18.8h.1m3-2h.1m-5.1-1h.1" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" />
+                </svg>
+            </span>
+            <span class="module-card-content">
+                <strong>Medicamentos</strong>
+                <small>Consulte e organize seu catálogo.</small>
+            </span>
+            <span class="module-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="module-card" asp-controller="Paciente" asp-action="Listar">
+            <span class="module-icon icon-patients">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                    <circle cx="9" cy="8" r="3.2" stroke="currentColor" stroke-width="1.7" />
+                    <path d="M3.5 19v-1.2A4.8 4.8 0 0 1 8.3 13h1.4a4.8 4.8 0 0 1 4.8 4.8V19m1.3-11.5a3.2 3.2 0 0 1 0 6.2m1.1-.7a4.8 4.8 0 0 1 3.6 4.6V19" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+                </svg>
+            </span>
+            <span class="module-card-content">
+                <strong>Pacientes</strong>
+                <small>Mantenha os cadastros organizados.</small>
+            </span>
+            <span class="module-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="module-card" asp-controller="Fornecedor" asp-action="Listar">
+            <span class="module-icon icon-suppliers">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                    <path d="M3.5 20V8.5L12 4l8.5 4.5V20h-17Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
+                    <path d="M8 20v-6h8v6M8 9h.1M12 9h.1M16 9h.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+                </svg>
+            </span>
+            <span class="module-card-content">
+                <strong>Fornecedores</strong>
+                <small>Acompanhe seus parceiros.</small>
+            </span>
+            <span class="module-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a class="module-card" asp-controller="Funcionario" asp-action="Listar">
+            <span class="module-icon icon-team">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="7.5" r="3.2" stroke="currentColor" stroke-width="1.7" />
+                    <path d="M5.2 20v-1.4a6.8 6.8 0 0 1 13.6 0V20M12 14.8v3.7m-1.85-1.85h3.7" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+                </svg>
+            </span>
+            <span class="module-card-content">
+                <strong>Funcionários</strong>
+                <small>Cuide das informações da equipe.</small>
+            </span>
+            <span class="module-arrow" aria-hidden="true">↗</span>
+        </a>
+    </div>
+</section>
