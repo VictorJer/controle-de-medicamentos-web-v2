@@ -1,0 +1,86 @@
+@using ControleDeMedicamentosWeb.WebApp.Modulos.ModuloFornecedor.Apresentacao
+@model List<ListarFornecedoresViewModel>
+
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Fornecedores";
+}
+
+@if (TempData["MensagemErro"] is string mensagemErro)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @mensagemErro
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+    </div>
+}
+
+<section class="supplier-list">
+    <div class="list-toolbar">
+        <div>
+            <span class="section-eyebrow">Cadastros</span>
+            <h2>Fornecedores registrados</h2>
+        </div>
+
+        <a class="btn btn-primary-action" asp-controller="Fornecedor" asp-action="Cadastrar">
+            <svg aria-hidden="true" viewBox="0 0 20 20" fill="none">
+                <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            Novo fornecedor
+        </a>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="empty-state">
+            <span class="empty-state-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M3.5 20V8.5L12 4l8.5 4.5V20h-17Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round" />
+                    <path d="M8 20v-6h8v6M8 9h.1M12 9h.1M16 9h.1" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+                </svg>
+            </span>
+            <strong>Nenhum fornecedor cadastrado</strong>
+            <p>Cadastre o primeiro fornecedor para começar.</p>
+            <a class="btn btn-primary-action" asp-controller="Fornecedor" asp-action="Cadastrar">Cadastrar fornecedor</a>
+        </div>
+    }
+    else
+    {
+        <div class="supplier-table-wrap">
+            <table class="table supplier-table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col">CNPJ</th>
+                        <th scope="col" class="text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var fornecedor in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="supplier-name">
+                                    <span class="supplier-avatar" aria-hidden="true">@fornecedor.Nome[..1].ToUpper()</span>
+                                    <strong>@fornecedor.Nome</strong>
+                                </div>
+                            </td>
+                            <td>@fornecedor.Telefone</td>
+                            <td>@fornecedor.Cnpj</td>
+                            <td>
+                                <div class="table-actions">
+                                    <a class="btn btn-table-action" asp-controller="Fornecedor" asp-action="Editar" asp-route-id="@fornecedor.Id">
+                                        Editar
+                                    </a>
+                                    <a class="btn btn-table-action btn-table-danger" asp-controller="Fornecedor" asp-action="Excluir" asp-route-id="@fornecedor.Id">
+                                        Excluir
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>
