@@ -1,4 +1,5 @@
 using ControleDeMedicamentosWeb.WebApp.Modulos.ModuloPaciente.Dominio;
+using FluentResults;
 
 namespace ControleDeMedicamentosWeb.WebApp.Modulos.ModuloPaciente.Aplicacao;
 
@@ -11,5 +12,8 @@ public class ServicoPaciente
         this.repositorioPaciente = repositorioPaciente;
     }
 
-    
+    public Result Cadastrar()
+    {
+        
+    } 
 }
