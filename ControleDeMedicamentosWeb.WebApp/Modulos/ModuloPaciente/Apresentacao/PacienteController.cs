@@ -1,4 +1,5 @@
 using AutoMapper;
+using ControleDeMedicamentosWeb.WebApp.Compartilhado.Apresentacao.Extensions;
 using ControleDeMedicamentosWeb.WebApp.Modulos.ModuloPaciente.Aplicacao;
 using ControleDeMedicamentosWeb.WebApp.Modulos.ModuloPaciente.Dominio;
 using FluentResults;
@@ -18,5 +19,36 @@ public class PacienteController(ServicoPaciente servicoPaciente, IMapper mapper)
         return View(vm);
     }
 
-    []
+    [HttpGet]
+    public ActionResult Cadastrar()
+    {
+        CadastrarPacienteViewModel cadastrarVm = new CadastrarPacienteViewModel(
+            string.Empty,
+            string.Empty,
+            string.Empty,
+            string.Empty
+        );
+
+        return View(cadastrarVm);
+    }
+
+    [HttpPost]
+    public ActionResult Cadastrar(CadastrarPacienteViewModel cadastrarVm)
+    {
+        if (!ModelState.IsValid)
+            return View(cadastrarVm);
+        
+        CadastrarPacienteDto dto = mapper.Map<CadastrarPacienteDto>(cadastrarVm);
+
+        Result result = servicoPaciente.Cadastrar(dto);
+
+        if (result.IsFailed)
+        {
+            ModelState.AddModelError(result);
+
+            return View(cadastrarVm);
+        }
+
+        return RedirectToAction(nameof(Listar));
+    }
 }
