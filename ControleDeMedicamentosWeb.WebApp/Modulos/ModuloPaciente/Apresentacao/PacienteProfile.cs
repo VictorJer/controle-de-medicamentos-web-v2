@@ -5,9 +5,12 @@ namespace ControleDeMedicamentosWeb.WebApp.Modulos.ModuloPaciente.Apresentacao;
 
 public class PacienteProfile : Profile
 {
-    PacienteProfile()
+    public PacienteProfile()
     {
         CreateMap<ListarPacienteDto, ListarPacienteViewModel>();
-        CreateMap<
+        CreateMap<CadastrarPacienteViewModel, CadastrarPacienteDto>();
+        CreateMap<EditarPacienteViewModel, EditarPacienteDto>();
+        CreateMap<DetalhesPacienteDto, EditarPacienteViewModel>();
+        CreateMap<DetalhesPacienteDto, ExcluirPacienteViewModel>();
     }
 }
