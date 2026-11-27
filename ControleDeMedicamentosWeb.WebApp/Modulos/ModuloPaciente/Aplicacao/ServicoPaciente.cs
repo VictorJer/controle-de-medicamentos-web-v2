@@ -76,6 +76,18 @@ public class ServicoPaciente
         return Result.Ok();
     }
 
+    public Result Excluir(Guid id)
+    {
+        Paciente? paciente = repositorioPaciente.SelecionarPorId(id);
+
+        if (paciente == null)
+            return Result.Fail("Paciente não encontrado");
+        
+        repositorioPaciente.Excluir(id);
+
+        return Result.Ok();
+    }
+
     private bool ExistePacienteComMesmoCartaoSUS(string cartaoSus, Guid? idIguinorado = null)
     {
         return repositorioPaciente.SelecionarTodos()
