@@ -88,6 +88,18 @@ public class ServicoPaciente
         return Result.Ok();
     }
 
+    public List<ListarPacienteDto> SelecionarTodos()
+    {
+        return repositorioPaciente.SelecionarTodos()
+                .Select(p => new ListarPacienteDto(
+                    p.Id,
+                    p.Nome,
+                    p.Telefone,
+                    p.CartaoSus,
+                    p.Cpf
+                )).ToList();
+    }
+
     private bool ExistePacienteComMesmoCartaoSUS(string cartaoSus, Guid? idIguinorado = null)
     {
         return repositorioPaciente.SelecionarTodos()
