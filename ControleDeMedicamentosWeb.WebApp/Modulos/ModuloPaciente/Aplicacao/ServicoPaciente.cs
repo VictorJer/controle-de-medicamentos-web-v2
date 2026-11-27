@@ -15,7 +15,7 @@ public class ServicoPaciente
     public Result Cadastrar(CadastrarPacienteDto cadastrarDto)
     {
         if (ExistePacienteComMesmoNome(cadastrarDto.Nome))
-            return Falha(nameof(cadastrarDto.Nome), "Já existe um Fornecedor com o mesmo nome.");
+            return Falha(nameof(cadastrarDto.Nome), "Já existe um Paciente com o mesmo nome.");
         
         if (ExistePacienteComMesmoCpf(cadastrarDto.Cpf))
             return Falha(nameof(cadastrarDto.Cpf), "Já existe um Paciente com esse CPF.");

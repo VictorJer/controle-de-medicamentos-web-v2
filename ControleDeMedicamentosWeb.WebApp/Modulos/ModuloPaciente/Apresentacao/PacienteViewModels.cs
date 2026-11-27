@@ -16,11 +16,11 @@ public record CadastrarPacienteViewModel(
     string Nome,
 
     [Required(ErrorMessage = "O campo \"Telefone\" deve ser preenchido.")]
-    [RegularExpression(@"^\d{11}$", ErrorMessage = "O campo \"Telefone\" deve conter exatamente 11 dígitos.")]
+    [RegularExpression(@"^\(?\d{2}\)? ?\d{4,5}-?\d{4}$", ErrorMessage = "Informe o telefone em um formato válido, por exemplo (11) 99999-9999.")]
     string Telefone,
 
     [Required(ErrorMessage = "O campo \"Cartão SUS\" deve ser preenchido.")]
-    [StringLength(14, ErrorMessage = "O campo \"Cartão SUS\" deve conter 14 caracteres.")]
+    [RegularExpression(@"^\d{15}$", ErrorMessage = "O campo \"Cartão SUS\" deve conter exatamente 15 dígitos.")]
     string CartaoSus,
 
     [Required(ErrorMessage = "O campo \"CPF\" deve ser preenchido.")]
@@ -37,11 +37,11 @@ public record EditarPacienteViewModel(
     string Nome,
 
     [Required(ErrorMessage = "O campo \"Telefone\" deve ser preenchido.")]
-    [RegularExpression(@"^\d{11}$", ErrorMessage = "O campo \"Telefone\" deve conter exatamente 11 dígitos.")]
+    [RegularExpression(@"^\(?\d{2}\)? ?\d{4,5}-?\d{4}$", ErrorMessage = "Informe o telefone em um formato válido, por exemplo (11) 99999-9999.")]
     string Telefone,
 
     [Required(ErrorMessage = "O campo \"Cartão SUS\" deve ser preenchido.")]
-    [StringLength(14, ErrorMessage = "O campo \"Cartão SUS\" deve conter 14 caracteres.")]
+    [RegularExpression(@"^\d{15}$", ErrorMessage = "O campo \"Cartão SUS\" deve conter exatamente 15 dígitos.")]
     string CartaoSus,
 
     [Required(ErrorMessage = "O campo \"CPF\" deve ser preenchido.")]

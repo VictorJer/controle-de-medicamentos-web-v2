@@ -42,14 +42,20 @@ public sealed class Paciente : EntidadeBase<Paciente>
         if (string.IsNullOrWhiteSpace(Telefone))
             erros.Add("O campo \"Telefone\" deve ser preenchido.");
         
-        else if (!Regex.IsMatch(Telefone, @"^\d{11}$"))
-            erros.Add("O campo \"Telefone\" deve conter exatamente 11 dígitos.");
+        else if (!Regex.IsMatch(Telefone, @"^\(?\d{2}\)? ?\d{4,5}-?\d{4}$"))
+            erros.Add("O campo \"Telefone\" deve informar um formato válido.");
+
+        if (string.IsNullOrWhiteSpace(CartaoSus))
+            erros.Add("O campo \"Cartão SUS\" deve ser preenchido.");
+
+        else if (!Regex.IsMatch(CartaoSus, @"^\d{15}$"))
+            erros.Add("O campo \"Cartão SUS\" deve conter exatamente 15 dígitos.");
         
         if (string.IsNullOrWhiteSpace(Cpf))
             erros.Add("O campo \"CPF\" deve ser preenchido.");
         
-        else if (Cpf.Length != 11)
-            erros.Add("O campo \"CPF\" deve conter 11 digitos.");
+        else if (!Regex.IsMatch(Cpf, @"^\d{11}$"))
+            erros.Add("O campo \"CPF\" deve conter exatamente 11 dígitos.");
         
         return erros;
     }
