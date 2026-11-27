@@ -87,4 +87,36 @@ public class PacienteController(ServicoPaciente servicoPaciente, IMapper mapper)
 
         return RedirectToAction(nameof(Listar));
     }
+
+    [HttpGet]
+    public ActionResult Excluir(Guid id)
+    {
+        var result = servicoPaciente.SelecionarPorId(id);
+
+        if (result.IsFailed)
+        {
+            TempData.AddErrorMessage(result);
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        ExcluirPacienteViewModel vm = mapper.Map<ExcluirPacienteViewModel>(result.Value);
+
+        return View(vm);
+    }
+
+    [HttpPost]
+    public ActionResult Excluir(ExcluirPacienteViewModel excluirVm)
+    {
+        var result = servicoPaciente.Excluir(excluirVm.Id);
+
+        if (result.IsFailed)
+        {
+            TempData.AddErrorMessage(result);
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        return RedirectToAction(nameof(Listar));
+    }
 }
