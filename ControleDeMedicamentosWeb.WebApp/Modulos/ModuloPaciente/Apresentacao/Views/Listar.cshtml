@@ -1,0 +1,87 @@
+@model List<ControleDeMedicamentosWeb.WebApp.Modulos.ModuloPaciente.Apresentacao.ListarPacienteViewModel>
+
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Pacientes";
+}
+
+@if (TempData["MensagemErro"] is string mensagemErro)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @mensagemErro
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+    </div>
+}
+
+<section class="supplier-list">
+    <div class="list-toolbar">
+        <div>
+            <span class="section-eyebrow">Cadastros</span>
+            <h2>Pacientes registrados</h2>
+        </div>
+
+        <a class="btn btn-primary-action" asp-controller="Paciente" asp-action="Cadastrar">
+            <svg aria-hidden="true" viewBox="0 0 20 20" fill="none">
+                <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            Novo paciente
+        </a>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="empty-state">
+            <span class="empty-state-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="7" r="4" stroke="currentColor" stroke-width="1.7" />
+                    <path d="M4.5 21v-2.5A7.5 7.5 0 0 1 12 11a7.5 7.5 0 0 1 7.5 7.5V21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+                </svg>
+            </span>
+            <strong>Nenhum paciente cadastrado</strong>
+            <p>Cadastre o primeiro paciente para começar.</p>
+            <a class="btn btn-primary-action" asp-controller="Paciente" asp-action="Cadastrar">Cadastrar paciente</a>
+        </div>
+    }
+    else
+    {
+        <div class="supplier-table-wrap">
+            <table class="table supplier-table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col">Cartão SUS</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col" class="text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var paciente in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="supplier-name">
+                                    <span class="supplier-avatar" aria-hidden="true">@paciente.Nome[..1].ToUpper()</span>
+                                    <strong>@paciente.Nome</strong>
+                                </div>
+                            </td>
+                            <td>@paciente.Telefone</td>
+                            <td>@paciente.CartaoSus</td>
+                            <td>@paciente.Cpf</td>
+                            <td>
+                                <div class="table-actions">
+                                    <a class="btn btn-table-action" asp-controller="Paciente" asp-action="Editar" asp-route-id="@paciente.Id">
+                                        Editar
+                                    </a>
+                                    <a class="btn btn-table-action btn-table-danger" asp-controller="Paciente" asp-action="Excluir" asp-route-id="@paciente.Id">
+                                        Excluir
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>
