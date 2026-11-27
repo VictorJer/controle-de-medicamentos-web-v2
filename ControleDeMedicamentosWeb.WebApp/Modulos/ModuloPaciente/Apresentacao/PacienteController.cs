@@ -1,7 +1,6 @@
 using AutoMapper;
 using ControleDeMedicamentosWeb.WebApp.Compartilhado.Apresentacao.Extensions;
 using ControleDeMedicamentosWeb.WebApp.Modulos.ModuloPaciente.Aplicacao;
-using ControleDeMedicamentosWeb.WebApp.Modulos.ModuloPaciente.Dominio;
 using FluentResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -47,6 +46,43 @@ public class PacienteController(ServicoPaciente servicoPaciente, IMapper mapper)
             ModelState.AddModelError(result);
 
             return View(cadastrarVm);
+        }
+
+        return RedirectToAction(nameof(Listar));
+    }
+
+    [HttpGet]
+    public ActionResult Editar(Guid id)
+    {
+        Result<DetalhesPacienteDto> result = servicoPaciente.SelecionarPorId(id);
+
+        if (result.IsFailed)
+        {
+            TempData.AddErrorMessage(result);
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        var paciente = mapper.Map<EditarPacienteViewModel>(result.Value);
+
+        return View(paciente);
+    }
+
+    [HttpPost]
+    public ActionResult Editar(EditarPacienteViewModel editarVm)
+    {
+        if (!ModelState.IsValid)
+            return View(editarVm);
+        
+        var dto = mapper.Map<EditarPacienteDto>(editarVm);
+
+        var result = servicoPaciente.Editar(dto);
+
+        if (result.IsFailed)
+        {
+            ModelState.AddModelError(result);
+
+            return View(editarVm);
         }
 
         return RedirectToAction(nameof(Listar));
