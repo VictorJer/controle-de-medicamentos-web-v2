@@ -100,6 +100,16 @@ public class ServicoPaciente
                 )).ToList();
     }
 
+    public Result<DetalhesPacienteDto> SelecionarPorId(Guid id)
+    {
+        Paciente? paciente = repositorioPaciente.SelecionarPorId(id);
+
+        if (paciente == null)
+            return Result.Fail("Paciente não encontrado.");
+        
+        return Result.Ok(new DetalhesPacienteDto(id, paciente.Nome, paciente.Telefone, paciente.CartaoSus, paciente.Cpf));
+    }
+
     private bool ExistePacienteComMesmoCartaoSUS(string cartaoSus, Guid? idIguinorado = null)
     {
         return repositorioPaciente.SelecionarTodos()
