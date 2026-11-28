@@ -79,7 +79,7 @@ public class FuncionarioController(ServicoFuncionario servicoFuncionario, IMappe
             return View(editarVm);
         }
 
-        return RedirectToAction(nameof(editarVm));
+        return RedirectToAction(nameof(Listar));
     }
 
     [HttpGet]
