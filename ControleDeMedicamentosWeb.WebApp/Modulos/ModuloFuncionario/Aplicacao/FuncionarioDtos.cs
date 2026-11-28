@@ -20,13 +20,6 @@ public record EditarFuncionarioDto(
     string Cpf    
 );
 
-public record ExcluirFuncionarioDto(
-    Guid Id,
-    string Nome,
-    string Telefone,
-    string Cpf 
-);
-
 public record DetalhesFuncionarioDto(
     Guid Id,
     string Nome,

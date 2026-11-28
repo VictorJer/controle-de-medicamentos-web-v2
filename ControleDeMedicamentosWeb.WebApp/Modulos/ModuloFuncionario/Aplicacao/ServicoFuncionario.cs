@@ -55,6 +55,21 @@ namespace ControleDeMedicamentosWeb.WebApp.Modulos.ModuloFuncionario.Aplicacao
             return Result.Ok();  
         }
 
+        public Result Excluir(Guid id)
+        {
+            var selec = repositorioFuncionario.SelecionarPorId(id);
+
+            if (selec == null)
+                return Result.Fail("Funcionario não encontrado.");
+            
+            var result = repositorioFuncionario.Excluir(id);
+
+            if (!result)
+                return Result.Fail("Funcionario não encontrado.");
+
+            return Result.Ok();
+        }
+
         private bool ExiteFuncionarioComMesmoCpf(string cpf, Guid? idIguinorado = null)
         {
             return repositorioFuncionario.SelecionarTodos()
