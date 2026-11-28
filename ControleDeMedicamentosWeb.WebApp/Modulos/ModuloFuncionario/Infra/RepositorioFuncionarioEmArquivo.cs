@@ -8,6 +8,6 @@ public class RepositorioFuncionarioEmArquivo : RepositorioBaseEmArquivo<Funciona
     public RepositorioFuncionarioEmArquivo(ContextoJson contexto) : base(contexto) { }
     protected override List<Funcionario> CarregarRegistros()
     {
-        return contexto.Funcionario;
+        return contexto.Funcionarios;
     }
 }
