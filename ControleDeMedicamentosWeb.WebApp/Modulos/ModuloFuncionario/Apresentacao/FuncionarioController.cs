@@ -44,4 +44,41 @@ public class FuncionarioController(ServicoFuncionario servicoFuncionario, IMappe
 
         return RedirectToAction(nameof(Listar));
     }
+
+    [HttpGet]
+    public ActionResult Editar(Guid id)
+    {
+        var result = servicoFuncionario.SelecionarPorId(id);
+
+        if (result.IsFailed)
+        {
+            TempData.AddErrorMessage(result);
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        var vm = mapper.Map<EditarFuncionarioViewModel>(result.Value);
+
+        return View(vm);
+    }
+
+    [HttpPost]
+    public ActionResult Editar(EditarFuncionarioViewModel editarVm)
+    {
+        if (!ModelState.IsValid)
+            return View(editarVm);
+        
+        var dto = mapper.Map<EditarFuncionarioDto>(editarVm);
+
+        var result = servicoFuncionario.Editar(dto);
+
+        if (result.IsFailed)
+        {
+            ModelState.AddModelError(result);
+
+            return View(editarVm);
+        }
+
+        return RedirectToAction(nameof(editarVm));
+    }
 }
