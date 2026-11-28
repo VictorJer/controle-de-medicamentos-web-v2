@@ -41,5 +41,14 @@ namespace ControleDeMedicamentosWeb.WebApp.Modulos.ModuloFuncionario.Aplicacao
         {
             return Result.Fail(new Error(mensagem).WithMetadata("Campo", campo));
         }
+        private Result ValidarEntidade(Funcionario funcionario)
+        {
+            List<string> erros = funcionario.Validar();
+
+            if (erros.Count == 0)
+                return Result.Ok();
+
+            return Result.Fail(new Error(erros.First()).WithMetadata("Campo", string.Empty));
+        }
     }
 }
