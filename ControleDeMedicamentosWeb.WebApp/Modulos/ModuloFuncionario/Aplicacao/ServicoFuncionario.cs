@@ -70,6 +70,21 @@ namespace ControleDeMedicamentosWeb.WebApp.Modulos.ModuloFuncionario.Aplicacao
             return Result.Ok();
         }
 
+        public Result<DetalhesFuncionarioDto> SelecionarPorId(Guid id)
+        {
+            Funcionario? funcionario = repositorioFuncionario.SelecionarPorId(id);
+
+            if (funcionario == null)
+                return Result.Fail("Funcionário não encontrado.");
+
+            return Result.Ok(new DetalhesFuncionarioDto(
+                funcionario.Id,
+                funcionario.Nome,
+                funcionario.Telefone,
+                funcionario.Cpf
+            ));
+        }
+
         public List<ListarFuncionarioDto> SelecionarTodos()
         {
             return repositorioFuncionario.SelecionarTodos().Select(f =>
