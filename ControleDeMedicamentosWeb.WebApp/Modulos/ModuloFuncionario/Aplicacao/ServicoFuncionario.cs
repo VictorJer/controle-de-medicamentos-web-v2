@@ -32,6 +32,29 @@ namespace ControleDeMedicamentosWeb.WebApp.Modulos.ModuloFuncionario.Aplicacao
             return Result.Ok();
         }
 
+        public Result Editar(EditarFuncionarioDto editarDto)
+        {
+            if (ExisteFuncionaroComMesmoNome(editarDto.Nome, editarDto.Id))
+                return Falha(nameof(editarDto.Nome), "Já existe um funcionaro com esse nome.");
+            
+            if (ExiteFuncionarioComMesmoCpf(editarDto.Cpf, editarDto.Id))
+                return Falha(nameof(editarDto.Cpf), "Já existe um funcionario com esse CPF.");
+
+            var FuncionarioAtualizado = new Funcionario(editarDto.Nome, editarDto.Telefone, editarDto.Cpf);
+
+            var Result = ValidarEntidade(FuncionarioAtualizado);
+
+            if (Result.IsFailed)
+                return Result;  
+
+            var result = repositorioFuncionario.Editar(editarDto.Id, FuncionarioAtualizado);
+
+            if (!result)
+                return  Result.Fail("Funcionario não encontrado.");  
+
+            return Result.Ok();  
+        }
+
         private bool ExiteFuncionarioComMesmoCpf(string cpf, Guid? idIguinorado = null)
         {
             return repositorioFuncionario.SelecionarTodos()
