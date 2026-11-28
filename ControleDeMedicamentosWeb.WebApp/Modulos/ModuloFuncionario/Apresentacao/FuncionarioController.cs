@@ -81,4 +81,36 @@ public class FuncionarioController(ServicoFuncionario servicoFuncionario, IMappe
 
         return RedirectToAction(nameof(editarVm));
     }
+
+    [HttpGet]
+    public ActionResult Excluir(Guid id)
+    {
+        var result = servicoFuncionario.SelecionarPorId(id);
+
+        if (result.IsFailed)
+        {
+            TempData.AddErrorMessage(result);
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        var vm = mapper.Map<ExcluirFuncionarioViewModel>(result.Value);
+
+        return View(vm);
+    }
+
+    [HttpPost]
+    public ActionResult Excluir(ExcluirFuncionarioViewModel excluirVm)
+    {
+        var result = servicoFuncionario.Excluir(excluirVm.Id);
+
+        if (result.IsFailed)
+        {
+            TempData.AddErrorMessage(result);
+
+            return RedirectToAction(nameof(Listar));
+        }
+
+        return RedirectToAction(nameof(Listar));
+    }
 }
