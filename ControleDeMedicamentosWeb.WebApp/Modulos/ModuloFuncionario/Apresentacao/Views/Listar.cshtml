@@ -1,0 +1,84 @@
+@model List<ControleDeMedicamentosWeb.WebApp.Modulos.ModuloFuncionario.Apresentacao.ListarFuncionarioViewModel>
+
+@{
+    Layout = "_Layout";
+    ViewBag.Titulo = "Funcionários";
+}
+
+@if (TempData["MensagemErro"] is string mensagemErro)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @mensagemErro
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+    </div>
+}
+
+<section class="supplier-list">
+    <div class="list-toolbar">
+        <div>
+            <span class="section-eyebrow">Cadastros</span>
+            <h2>Funcionários registrados</h2>
+        </div>
+
+        <a class="btn btn-primary-action" asp-controller="Funcionario" asp-action="Cadastrar">
+            <svg aria-hidden="true" viewBox="0 0 20 20" fill="none">
+                <path d="M10 4v12M4 10h12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
+            </svg>
+            Novo funcionário
+        </a>
+    </div>
+
+    @if (Model.Count == 0)
+    {
+        <div class="empty-state">
+            <span class="empty-state-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M16 20v-1.5a4.5 4.5 0 0 0-4.5-4.5h-3A4.5 4.5 0 0 0 4 18.5V20m6-9a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm6-6h4m-2-2v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" />
+                </svg>
+            </span>
+            <strong>Nenhum funcionário cadastrado</strong>
+            <p>Cadastre o primeiro funcionário para começar.</p>
+            <a class="btn btn-primary-action" asp-controller="Funcionario" asp-action="Cadastrar">Cadastrar funcionário</a>
+        </div>
+    }
+    else
+    {
+        <div class="supplier-table-wrap">
+            <table class="table supplier-table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Telefone</th>
+                        <th scope="col">CPF</th>
+                        <th scope="col" class="text-end">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var funcionario in Model)
+                    {
+                        <tr>
+                            <td>
+                                <div class="supplier-name">
+                                    <span class="supplier-avatar" aria-hidden="true">@funcionario.Nome[..1].ToUpper()</span>
+                                    <strong>@funcionario.Nome</strong>
+                                </div>
+                            </td>
+                            <td>@funcionario.Telefone</td>
+                            <td>@funcionario.Cpf</td>
+                            <td>
+                                <div class="table-actions">
+                                    <a class="btn btn-table-action" asp-controller="Funcionario" asp-action="Editar" asp-route-id="@funcionario.Id">
+                                        Editar
+                                    </a>
+                                    <a class="btn btn-table-action btn-table-danger" asp-controller="Funcionario" asp-action="Excluir" asp-route-id="@funcionario.Id">
+                                        Excluir
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>
