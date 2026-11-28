@@ -19,6 +19,17 @@ namespace ControleDeMedicamentosWeb.WebApp.Modulos.ModuloFuncionario.Aplicacao
             
             if (ExiteFuncionarioComMesmoCpf(cadastrarDto.Cpf))
                 return Falha(nameof(cadastrarDto.Cpf), "Já existe um funcionario com esse CPF.");
+            
+            var novoFuncionario = new Funcionario(cadastrarDto.Nome, cadastrarDto.Telefone, cadastrarDto.Cpf);
+
+            var Result = ValidarEntidade(novoFuncionario);
+
+            if (Result.IsFailed)
+                return Result;
+            
+            repositorioFuncionario.Cadastrar(novoFuncionario);
+
+            return Result.Ok();
         }
 
         private bool ExiteFuncionarioComMesmoCpf(string cpf, Guid? idIguinorado = null)
