@@ -26,7 +26,7 @@ public class FuncionarioController(ServicoFuncionario servicoFuncionario, IMappe
     }
 
     [HttpPost]
-    public ActionResult Cadstrar(CadastrarFuncionarioDto cadastrarVm)
+    public ActionResult Cadastrar(CadastrarFuncionarioViewModel cadastrarVm)
     {
         if (!ModelState.IsValid)
             return View(cadastrarVm);
