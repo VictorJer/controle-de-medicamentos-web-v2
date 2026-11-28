@@ -70,6 +70,12 @@ namespace ControleDeMedicamentosWeb.WebApp.Modulos.ModuloFuncionario.Aplicacao
             return Result.Ok();
         }
 
+        public List<ListarFuncionarioDto> SelecionarTodos()
+        {
+            return repositorioFuncionario.SelecionarTodos().Select(f =>
+                    new ListarFuncionarioDto(f.Id, f.Nome, f.Telefone, f.Cpf)).ToList();
+        }
+
         private bool ExiteFuncionarioComMesmoCpf(string cpf, Guid? idIguinorado = null)
         {
             return repositorioFuncionario.SelecionarTodos()
